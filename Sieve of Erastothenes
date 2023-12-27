@@ -1,0 +1,40 @@
+using System;
+
+class SieveOfEratosthenes
+{
+    static void Main()
+    {
+        Console.Write("Enter a number to find all primes up to: ");
+        int limit = Convert.ToInt32(Console.ReadLine());
+
+        bool[] isPrime = new bool[limit + 1];
+
+        // Initialize all numbers as prime
+        for (int i = 2; i <= limit; i++)
+        {
+            isPrime[i] = true;
+        }
+
+        // Apply the Sieve of Eratosthenes
+        for (int i = 2; i * i <= limit; i++)
+        {
+            if (isPrime[i])
+            {
+                for (int j = i * i; j <= limit; j += i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // Print the prime numbers
+        Console.WriteLine("Prime numbers up to {0}:", limit);
+        for (int i = 2; i <= limit; i++)
+        {
+            if (isPrime[i])
+            {
+                Console.Write(i + " ");
+            }
+        }
+    }
+}
