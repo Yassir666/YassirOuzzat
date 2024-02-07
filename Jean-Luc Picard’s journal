@@ -1,0 +1,48 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        bool writing = false;
+        string input;
+        string journalContent = "";
+
+        Console.WriteLine("Welcome to the Captain's journal!");
+
+        while (true)
+        {
+            input = Console.ReadLine();
+
+            if (input.ToLower() == "start")
+            {
+                writing = true;
+                Console.WriteLine("You may now start writing into the journal:");
+            }
+            else if (input.ToLower() == "stop")
+            {
+                writing = false;
+                break;
+            }
+            else if (writing)
+            {
+                journalContent += input + "\n";
+            }
+        }
+
+        // Writing the journal content to a file
+        string currentDate = DateTime.Now.ToString("yyyyMMdd");
+        string fileName = $"{currentDate}.txt";
+
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            writer.WriteLine("Captain's log");
+            writer.WriteLine($"Stardate {currentDate}");
+            writer.WriteLine(journalContent);
+            writer.WriteLine("Jean-Luc Picard");
+        }
+
+        Console.WriteLine($"Journal saved to {fileName}");
+    }
+}
